@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include<conio.h>
 #include<malloc.h>
-int *at1,*at2,*bt1,*bt2,*pr2,*p1,p,n,j=0,k=0;
-int count,j,time,total,avg_wt,tat[10],remain,flag=0,time_quantum; 
-int avg_tat,wait_time=0,turnaround_time=0,rt[10],pos,pr[10];
+int *at1,*at2,*bt1,*bt2,*pr2,*p1,x,w,awt,atat,p,n,j=0,k=0,l=0;
+int count,j,time,total,avg_wt,w1[10],tat[10],remain,flag=0,time_quantum; 
+int avg_tat,wait_time=0,turnaround_time=0,rt[10],pos,pr[10],t[10];
 void AA()
 {
 int i;
@@ -16,6 +16,38 @@ int i;
 	    }
 	    else
 	    {
+	        for(i=0;i<k-1;i++)
+            {
+                for( l=i+1;j<k;j++)
+                {
+                    if(pr2[i]<pr2[l])
+                    {
+                        x=pr2[i];
+                        pr2[i]=pr2[l];
+                        pr2[j]=x;
+                        x=bt2[i];
+                        bt2[i]=bt2[l];
+                        bt2[l]=x;
+                        x=at2[i];
+                        at2[i]=at2[l];
+                        at2[j]=x;
+                    }
+                }
+           }
+            w1[0]=0;
+            awt=0;
+            t[0]=bt2[0];
+            atat=t[0];
+            for(i=1;i<n;i++)
+            {
+                w1[i]=t[i-1];
+                awt+=w1[i];
+                t[i]=w1[i]+bt2[i];
+                atat+=t[i];
+            }
+            awt/=n;
+            atat/=n;
+	        
 	        
             for(time=0,count=0;remain!=0;) 
             { 
@@ -78,18 +110,21 @@ int i;
         total+=wt[i];
     }
  
-    avg_wt=total/n;      
+    avg_wt=atat/k+total/j;      
     total=0;
  
     printf("\nProcess\t    Burst Time    \tWaiting Time\tTurnaround Time");
-    for(i=0;i<j;i++)
+    for(i=0;i<k;i++)
+    printf("\nP[%d]\t\t  %d\t\t  %d\t\t  \t\t%d\n",i,bt2[i],w1[i],t[i]);
+    for(i=k+1;i<j+k;i++)
     {
         tat[i]=bt1[i]+wt[i];  
         total+=tat[i];
-        printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p1[i],bt1[i],wt[i],tat[i]);
+        printf("\nP[%d]\t\t  %d\t\t  %d\t\t\t%d",i,bt1[i],wt[i],tat[i]);
     }
+   
  
-    avg_tat=total/n;    
+    avg_tat=atat/k+total/j;    
     printf("\n\nAverage Waiting Time=%d",avg_wt);
     printf("\nAverage Turnaround Time=%d\n",avg_tat);
 }
