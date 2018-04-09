@@ -12,6 +12,8 @@ int i;
 		if(bt1[i]%2!=0 || bt2[i]%2!=0)
 	    {
 		    printf("\n\nYou have entered the burst time that is not the multiple of 2 !!");
+		    printf("\n\nSorry Try Again!!");
+		    getch();
 		    main();
 	    }
 	    else
@@ -77,8 +79,6 @@ int i;
                 else 
                     count=0; 
                 } 
-                    printf("\nAverage Waiting Time= %f\n",wait_time*1.0/n); 
-                    printf("Avg Turnaround Time = %f",turnaround_time*1.0/n); 
 		}
     }	
     
@@ -130,6 +130,12 @@ int i;
 }
 int main()
 {
+	printf("\t\t\t\tWelcome\t\t\n");
+	getch();
+	system("cls");
+	printf("\t\t\t\tScheduling\t\t\n\n");
+	getch();
+	system("cls");
 	printf("Enter the number of the processes:");
 	scanf("%d",&n);
 	int i;
@@ -141,7 +147,7 @@ int main()
 	p1=(int *)malloc(n*sizeof(int));
 	for(i=0;i<n;i++)
 	{
-		printf("\nEnter the priority of the process:");
+		printf("\nEnter the priority of the process%d:",i);
 	    scanf("%d",&p);
 	    if(p==2)
 	    {
@@ -161,8 +167,8 @@ int main()
 		    scanf("%d",&pr2[i]);
 		    k=k+1;
 		}
-		printf("Enter Time Quantum:\t"); 
-        scanf("%d",&time_quantum);
 	}
-	AA();
+			printf("Enter Time Quantum:\t"); 
+        scanf("%d",&time_quantum);
+     	AA();
 }
